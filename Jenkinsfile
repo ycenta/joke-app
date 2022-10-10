@@ -44,7 +44,7 @@ pipeline {
         steps {
           sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\")"
           script {
-            docker.build registry + "$VERSION"
+            docker.build("${env.registry}$VERSION")
             docker.withRegistry( 'registry.heroku.com', 'herokuId' ) {
               dockerImage.push()
             }
