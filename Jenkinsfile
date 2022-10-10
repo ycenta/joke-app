@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environnement {
+      HEROKU_TOKEN = credentials('heroku_token')
+    }
     stages {
 
         stage('build-test') {
@@ -10,6 +12,7 @@ pipeline {
                 }
             }
             steps {
+                echo "${HEROKU_TOKEN}"
                 sh 'pnpm install'
                 sh 'pnpm build'
                 sh 'pnpm test'
