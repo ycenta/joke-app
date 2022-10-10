@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+      docker { image 'node:17-alpine' }
+    }
     environment {
       HEROKU_TOKEN = credentials('heroku_token')
     }
@@ -12,7 +14,7 @@ pipeline {
                 }
             }
             steps {
-                echo "${HEROKU_TOKEN}"
+                sh 'npm install -g pnpm'
                 sh 'pnpm install'
                 sh 'pnpm build'
                 sh 'pnpm test'
