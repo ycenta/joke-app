@@ -11,7 +11,6 @@ pipeline {
 
     def testPassed = true
     stages {
-        boolean testPassed = true
         stage('build-test') {
             when {
                 expression {
