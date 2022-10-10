@@ -7,7 +7,6 @@ pipeline {
 
     environment {
       HEROKU_TOKEN = credentials('heroku_token')
-      testPassed = true
       registry = "registry.heroku.com/joke-jenkins/web"
     }
 
@@ -28,7 +27,6 @@ pipeline {
                   sh 'pnpm build'
                   sh 'pnpm test'
                 } catch(Exception e){
-                    testPassed = false
                     stageResult = 'FAILURE'
                     buildResult = 'FAILURE'
                     throw e
@@ -40,7 +38,7 @@ pipeline {
       stage('docker') {
         when {
             expression {
-              return BRANCH_NAME == 'main' && testPassed == true
+              return BRANCH_NAME == 'main' 
             }
         }
 
