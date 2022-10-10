@@ -19,13 +19,15 @@ pipeline {
             }
 
             steps {
-              try{
-                sh 'npm install -g pnpm'
-                sh 'pnpm install'
-                sh 'pnpm build'
-                sh 'pnpm test'
-              } catch(Exception e){
-                  testPassed = false
+              script {
+                try{
+                  sh 'npm install -g pnpm'
+                  sh 'pnpm install'
+                  sh 'pnpm build'
+                  sh 'pnpm test'
+                } catch(Exception e){
+                    testPassed = false
+                }
               }
             }
         }
