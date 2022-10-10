@@ -25,7 +25,7 @@ pipeline {
                 sh 'pnpm install'
                 sh 'pnpm build'
                 sh 'pnpm test'
-              } catch() Exception e){
+              } catch(Exception e){
                   testPassed = false
               }
             }
