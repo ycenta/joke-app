@@ -28,6 +28,7 @@ pipeline {
                 } catch(Exception e){
                     testPassed = false
                     stageResult = 'FAILURE'
+                    buildResult = 'FAILURE'
                 }
               }
             }
