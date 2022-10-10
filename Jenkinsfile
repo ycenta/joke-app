@@ -46,10 +46,12 @@ pipeline {
           sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\")"
           script {
             docker.withRegistry( 'https://registry.heroku.com', 'herokuId' ) {
-              def image = docker.build("${env.registry}:${env.VERSION}")
+              def image = docker.build("${env.registry}:${env.BUILD_ID}")
               image.push()
             }
           }
+          sh "npm install -g heroku"
+          sh "heroku container:release web --app=joke-jenkins"
         }
       }
     }
