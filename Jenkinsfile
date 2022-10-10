@@ -40,8 +40,7 @@ pipeline {
       stage('docker') {
         when {
             expression {
-              BRANCH_NAME == 'main'
-              testPassed == true
+              return BRANCH_NAME == 'main' && testPassed == true
             }
         }
 
