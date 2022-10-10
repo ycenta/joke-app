@@ -8,6 +8,7 @@ pipeline {
     environment {
       HEROKU_TOKEN = credentials('heroku_token')
       registry = "registry.heroku.com/joke-jenkins/web"
+      VERSION = "latest"
     }
 
     stages {
@@ -45,7 +46,7 @@ pipeline {
           sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\")"
           script {
             docker.withRegistry( 'https://registry.heroku.com', 'herokuId' ) {
-              def image = docker.build("${env.registry}${env.VERSION}")
+              def image = docker.build("${env.registry}:${env.VERSION}")
               image.push()
             }
           }
