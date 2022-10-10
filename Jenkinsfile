@@ -22,6 +22,7 @@ pipeline {
             steps {
               script {
                 try{
+                  sh 'echo $testPassed'
                   sh 'npm install -g pnpm'
                   sh 'pnpm install'
                   sh 'pnpm build'
