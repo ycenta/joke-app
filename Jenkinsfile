@@ -27,5 +27,17 @@ pipeline {
                 sh 'pnpm test'
             }
         }
+
+      stage('docker') {
+        when {
+            expression {
+              BRANCH_NAME == 'main'
+            }
+        }
+
+        steps {
+          sh "docker build . -t joke-app-jenkins:$(node -e 'console.log(require(\"./package.json\").version)')"
+        }
+      }
     }
 }
