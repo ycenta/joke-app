@@ -46,13 +46,13 @@ pipeline {
           sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\")"
           script {
             docker.withRegistry( 'https://registry.heroku.com', 'herokuId' ) {
-              def image = docker.build("${env.registry}:${env.BUILD_ID}")
-              image.push()
+              sh "docker buildx build --platform linux/amd64 -t ${registry}:${VERSION}"
+              sh "docker push ${registry}:${VERSION}"
             }
           }
           sh "npm install -g heroku"
           withCredentials([usernamePassword(credentialsId: 'herokuId', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "echo $USERNAME  echo $PASSWORD | heroku login"
+            sh "echo ${USERNAME}  echo ${PASSWORD} | heroku login"
             sh "heroku container:release web --app=joke-jenkins"
           }
         }
