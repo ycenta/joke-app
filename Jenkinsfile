@@ -11,20 +11,23 @@ pipeline {
 
     
     stages {
-
+        boolean testPassed = true
         stage('build-test') {
             when {
                 expression {
                   BRANCH_NAME == 'main'
                 }
             }
+
             steps {
+              try{
                 sh 'npm install -g pnpm'
-                catchError(buildResult: 'FAILURE') {
                 sh 'pnpm install'
                 sh 'pnpm build'
                 sh 'pnpm test'
-                }
+              } catch() Exception e){
+                  testPassed = false
+              }
             }
         }
 
@@ -32,6 +35,7 @@ pipeline {
         when {
             expression {
               BRANCH_NAME == 'main'
+              testPassed == true
             }
         }
 
