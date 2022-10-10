@@ -21,7 +21,6 @@ pipeline {
             steps {
               script {
                 try{
-                  sh 'echo $testPassed'
                   sh 'npm install -g pnpm'
                   sh 'pnpm install'
                   sh 'pnpm build'
@@ -45,7 +44,7 @@ pipeline {
         steps {
           sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\")"
           script {
-            docker.build registry + ":$VERSION"
+            docker.build registry + "$VERSION"
             docker.withRegistry( 'registry.heroku.com', 'herokuId' ) {
               dockerImage.push()
             }
