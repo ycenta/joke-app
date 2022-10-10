@@ -29,6 +29,7 @@ pipeline {
                     testPassed = false
                     stageResult = 'FAILURE'
                     buildResult = 'FAILURE'
+                    throw e
                 }
               }
             }
