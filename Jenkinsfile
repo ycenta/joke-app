@@ -54,6 +54,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: 'herokuId', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh "echo $USERNAME  echo $HEROKU_CREDENTIALS_PASSWORD | heroku login"
             sh "heroku container:release web --app=joke-jenkins"
+          }
         }
       }
     }
