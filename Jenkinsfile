@@ -3,7 +3,9 @@ pipeline {
       choice(name: 'NODE_VERSION', choices: ['16', '17'])
     }
 
-    agent any
+    agent {
+      docker { image 'node:17-alpine' }
+    }
 
     environment {
       HEROKU_TOKEN = credentials('heroku_token')
