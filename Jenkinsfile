@@ -8,6 +8,7 @@ pipeline {
     environment {
       HEROKU_TOKEN = credentials('heroku_token')
       testPassed = true
+      registry = "registry.heroku.com/joke-jenkins/web"
     }
 
     stages {
@@ -44,7 +45,13 @@ pipeline {
         }
 
         steps {
-          sh "docker build . -t joke-app-jenkins:\$(node -e \"console.log(require('./package.json').version)\")"
+          sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\""
+          script {
+            docker.build registry + ":$VERSION"
+            docker.withRegistry( 'registry.heroku.com', 'herokuId' ) {
+              dockerImage.push()
+            }
+          }
         }
       }
     }
