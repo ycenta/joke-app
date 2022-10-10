@@ -19,7 +19,6 @@ pipeline {
                 }
             }
             steps {
-                sh "nvm use ${params.NODE_VERSION}"
                 sh 'npm install -g pnpm'
                 sh 'pnpm install'
                 sh 'pnpm build'
