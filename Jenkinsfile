@@ -34,7 +34,7 @@ pipeline {
         }
 
         steps {
-          sh "docker build . -t joke-app-jenkins:"$(node -e \"console.log(require(\"./package.json\").version)\"")"
+          sh "docker build . -t joke-app-jenkins:\$(node -e \"console.log(require(\"./package.json\").version)\")"
         }
       }
     }
