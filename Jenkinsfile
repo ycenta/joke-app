@@ -1,17 +1,15 @@
 pipeline {
+    parameters {
+      choice(name: 'NODE_VERSION', choices: ['16', '17'])
+    }
+
     agent any
-    
-    // {
-    //   docker { image 'node:17-alpine' }
-    // }
 
     environment {
       HEROKU_TOKEN = credentials('heroku_token')
     }
 
-    parameters {
-      choice(name: 'NODE_VERSION', choices: ['16', '17'], defaultValue: '17')
-    }
+    
     stages {
 
         stage('build-test') {
