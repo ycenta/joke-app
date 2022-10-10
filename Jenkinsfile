@@ -9,8 +9,8 @@ pipeline {
       HEROKU_TOKEN = credentials('heroku_token')
     }
 
-    def testPassed = true
     stages {
+        def testPassed = true
         stage('build-test') {
             when {
                 expression {
