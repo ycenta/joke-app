@@ -20,9 +20,11 @@ pipeline {
             }
             steps {
                 sh 'npm install -g pnpm'
+                catchError(buildResult: 'FAILURE') {
                 sh 'pnpm install'
                 sh 'pnpm build'
                 sh 'pnpm test'
+                }
             }
         }
 
