@@ -27,6 +27,7 @@ pipeline {
                   sh 'pnpm test'
                 } catch(Exception e){
                     testPassed = false
+                    stageResult = 'FAILURE'
                 }
               }
             }
