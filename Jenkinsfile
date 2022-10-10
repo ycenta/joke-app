@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    environement {
+    environment {
       HEROKU_TOKEN = credentials('heroku_token')
     }
     stages {
