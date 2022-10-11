@@ -18,9 +18,9 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\")"
         script {
           docker.withRegistry('https://registry.heroku.com', 'herokuId') {
+            sh "export VERSION=\$(node -e \"console.log(require('./package.json').version)\")"
             sh "docker buildx build --platform linux/amd64 -t ${registry}:${VERSION} ."
             sh "docker push ${registry}:${VERSION}"
           }
