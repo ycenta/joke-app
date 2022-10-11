@@ -39,6 +39,7 @@ pipeline {
 
           docker.withRegistry('https://registry.heroku.com', 'herokuId') {
             sh "docker buildx build --platform linux/amd64 -t ${registry}:$VERSION ."
+            sh "docker buildx build --platform linux/amd64 -t ${registry}:$VERSION -t ${registry}:latest -t ${registry}:${BUILD_ID} ."
             sh "docker push ${registry}:$VERSION"
           }
         }
