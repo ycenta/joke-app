@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  parameters {
+    choice(name: 'NODE_VERSION', choices: ['16', '17'])
+  }
 
   environment {
     VERSION = "latest"
@@ -8,11 +11,24 @@ pipeline {
 
   stages {
     stage('build-test') {
+      when {
+        expression {
+          BRANCH_NAME == 'main'
+        }
+      }
       steps {
-        sh "npm install -g pnpm"
-        sh "pnpm install"
-        sh "pnpm build"
-        sh "pnpm test"
+        script {
+          try {
+            sh "echo ${params.NODE_VERSION}"
+            sh "npm install -g pnpm"
+            sh "pnpm install"
+            sh "pnpm build"
+            sh "pnpm test"
+          } catch (Exception e) {
+            // mail(admin@gmail.com)
+            throw e
+          }
+        }
       }
     }
 
@@ -20,7 +36,7 @@ pipeline {
       steps {
         script {
           VERSION = sh([script: "node -e \"console.log(require(\'./package.json\').version)\"", returnStdout: true]).trim()
-          
+
           docker.withRegistry('https://registry.heroku.com', 'herokuId') {
             sh "docker buildx build --platform linux/amd64 -t ${registry}:$VERSION ."
             sh "docker push ${registry}:$VERSION"
