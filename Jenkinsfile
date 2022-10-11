@@ -28,7 +28,7 @@ pipeline {
           }
         }
 
-        sh "HEROKU_API_KEY=${HEROKU_API_KEY} npx heroku container:release web"
+        sh "HEROKU_API_KEY=${HEROKU_API_KEY} npx heroku container:release web --app=joke-jenkins"
       }
 		}
 
