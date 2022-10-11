@@ -19,10 +19,10 @@ pipeline {
     stage('deploy') {
       steps {
         script {
-          env.VERSION = sh([script: "node -e \"console.log(require('./package.json').version)\"", returnStdout: true]).trim()
+          VERSION = sh([script: "node -e \"console.log(require(\'./package.json\').version)\"", returnStdout: true]).trim()
           docker.withRegistry('https://registry.heroku.com', 'herokuId') {
-            sh "docker buildx build --platform linux/amd64 -t ${registry}:${VERSION} ."
-            sh "docker push ${registry}:${VERSION}"
+            sh "docker buildx build --platform linux/amd64 -t ${registry}:$VERSION ."
+            sh "docker push ${registry}:$VERSION"
           }
         }
 
