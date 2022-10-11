@@ -14,8 +14,6 @@ describe('AppController', () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
-
-    expect(true).toBeFalsy();
   });
 
   describe('root', () => {
