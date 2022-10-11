@@ -2,9 +2,12 @@ pipeline {
   agent any
 
   stages {
-    stage('build') {
+    stage('build-test') {
       steps {
-        sh "echo 'build 2'"
+        sh "npm install -g pnpm"
+        sh "pnpm install"
+        sh "pnpm build"
+        sh "pnpm test"
       }
     }
   }
