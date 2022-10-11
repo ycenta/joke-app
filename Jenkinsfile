@@ -5,7 +5,7 @@ pipeline {
     VERSION = "latest"
     registry = "registry.heroku.com/joke-jenkins/web"
 
-    HEROKU_API_KEY = credentials('heroku-token')
+    HEROKU_API_KEY = credentials('HEROKU_API_KEY')
   }
 
   stages {
