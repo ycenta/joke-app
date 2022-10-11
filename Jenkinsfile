@@ -3,13 +3,15 @@ pipeline {
 
   environment {
     VERSION = "latest"
+    registry = "registry.heroku.com/joke-jenkins/web"
+
+    HEROKU_API_KEY = credentials('heroku-token')
   }
 
   stages {
     stage('build') {
+
       steps {
-        sh "echo 'Building... version : ${env.VERSION}'"
-        sh "echo 'Building... version : ${VERSION}'"
         sh "npm install -g pnpm"
         sh "pnpm install"
         sh "pnpm build"
@@ -17,5 +19,18 @@ pipeline {
       }
 
     }
+    stage ('deploy') {
+      steps {
+        script { 
+          docker.withRegistry('https://registry.heroku.com', 'herokuId') {
+            sh "docker buildx build --platform linux/amd64 -t ${registry}:latest -t ${registry}:${BUILD_ID} ."
+            sh "docker push --all-tags ${registry}"
+          }
+        }
+
+        sh "HEROKU_API_KEY=${HEROKU_API_KEY} npx heroku container:release web"
+      }
+		}
+
   }
 }
