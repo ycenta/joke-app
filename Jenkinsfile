@@ -4,9 +4,11 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh "npm install"
-        sh "npm run build"
-        sh "npm test"
+        nodejs(nodeJSInstallationName: 'Node 17.x') {
+              sh "npm install"
+              sh "npm run build"
+              sh "npm test"
+            }
       }
     }
   }
