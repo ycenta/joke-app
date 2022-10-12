@@ -1,10 +1,9 @@
 pipeline {
+    agent any
+
     parameters {
       choice(name: 'NODE_VERSION', choices: ['16', '17'])
     }
-
-    agent any
-
     environment {
       HEROKU_TOKEN = credentials('heroku_token')
       registry = "registry.heroku.com/joke-jenkins/web"
