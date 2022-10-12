@@ -1,5 +1,7 @@
 # Docker Deployment
 
+[Jenkins](https://d329-85-204-70-100.eu.ngrok.io/job/joke-iw1/job/main/badge/icon?style=ball-32x32)
+
 In this tutorial we'll define a github action CI pipeline that will :
 1. Build our app
 2. Test it
