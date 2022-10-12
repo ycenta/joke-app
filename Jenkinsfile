@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        nodejs(nodeJSInstallationName: 'Node 17') {
+        nodejs(nodeJSInstallationName: '17') {
               sh "npm install"
               sh "npm run build"
               sh "npm test"
