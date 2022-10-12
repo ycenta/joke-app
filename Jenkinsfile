@@ -1,14 +1,17 @@
 pipeline {
   agent any
 
+  parameters {
+    choice(name: 'NODE_VERSION', choices: ['18', '17'])
+  }
+
   stages {
     stage('build') {
       steps {
-        nodejs(nodeJSInstallationName: '17') {
-              sh "pnpm store prune"
-              sh "pnpm install"
-              sh "pnpm run build"
-              sh "pnpm test"
+        nodejs(nodeJSInstallationName: ${params.NODE_VERSION}) {
+              sh "npm install"
+              sh "npm run build"
+              sh "npm test"
             }
       }
     }
