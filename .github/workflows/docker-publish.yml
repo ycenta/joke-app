@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+    paths:
+      - "**.ts"
+      - "**docker-publish.yml"
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
