@@ -28,15 +28,18 @@ pipeline {
 
       steps {
         script {
-          def image = docker.build('mohammaddocker/joke-app-jenkins')
+          def image = docker.build()
 
           docker.withRegistry('https://registry.hub.docker.com', 'dockerId') {
-            image.push('latest')
+            def dockerImage = image
+            dockerImage.tag('mohammaddocker/joke-app-jenkins')
+            dockerImage.push('latest')
           }
 
           docker.withRegistry('https://registry.heroku.com', 'herokuId') {
-            image.tag("${tag}:latest")
-            image.push()
+            def herokuImage = image
+            herokuImage.tag("${tag}")
+            herokuImage.push('latest')
           }
         }
       }
