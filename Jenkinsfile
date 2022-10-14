@@ -28,11 +28,10 @@ pipeline {
 
       steps {
         script {
-          def image = docker.build('')
+          def image = docker.build('mohammaddocker/joke-app-jenkins')
 
           docker.withRegistry('https://registry.hub.docker.com', 'dockerId') {
             def dockerImage = image
-            dockerImage.tag('mohammaddocker/joke-app-jenkins')
             dockerImage.push('latest')
           }
 
