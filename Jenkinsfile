@@ -28,7 +28,7 @@ pipeline {
 
       steps {
         script {
-          def image = docker.build()
+          def image = docker.build('')
 
           docker.withRegistry('https://registry.hub.docker.com', 'dockerId') {
             def dockerImage = image
