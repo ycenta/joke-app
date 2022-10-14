@@ -38,6 +38,7 @@ kind: Service
 metadata:
   name: joke-app
 spec:
+  type: ClusterIP
   selector:
     app: joke-app
   ports:
