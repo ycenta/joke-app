@@ -8,9 +8,9 @@ pipeline {
       steps {
         nodejs(nodeJSInstallationName: 'Node 17') {
           sh 'node -v'
-          sh 'pnpm install --frozen-lockfile'
-          sh 'pnpm build'
-          sh 'pnpm test'
+          sh 'npm install'
+          sh 'npm run build'
+          sh 'npm test'
         }
       }
     }
