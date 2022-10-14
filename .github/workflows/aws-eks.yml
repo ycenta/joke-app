@@ -23,7 +23,7 @@ jobs:
           cluster_name: joke-iw1-bis
         with:
           args: |
-            kubectl apply -f ./k8s/bikeshop.yml
+            kubectl apply -f ./k8s/deployment.yml
 
       # kubectl apply -f ./k8s/deployment.yml
       # - name: Configure AWS Credentials
