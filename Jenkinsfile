@@ -7,6 +7,7 @@ pipeline {
 
       steps {
         sh "echo 'Building...'"
+        sh "echo 'Building again'"
       }
     }
   }
