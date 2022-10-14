@@ -38,7 +38,7 @@ kind: Service
 metadata:
   name: joke-app
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: joke-app
   ports:
