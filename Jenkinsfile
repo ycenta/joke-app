@@ -23,5 +23,18 @@ pipeline {
         }
       }
     }
+
+    stage('deploy') {
+
+      steps {
+        script {
+          docker.withRegistry('https://hub.docker.com', 'dockerId') {
+            def image = docker.build('joke-app-jenkins')
+
+            image.push('latest')
+          }
+        }
+      }
+    }
   }
 }
