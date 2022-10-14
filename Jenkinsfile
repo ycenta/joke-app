@@ -27,7 +27,7 @@ pipeline {
 
       steps {
         script {
-          docker.withRegistry('https://hub.docker.com', 'dockerId') {
+          docker.withRegistry('', 'dockerId') {
             def image = docker.build('joke-app-jenkins')
 
             image.push('latest')
