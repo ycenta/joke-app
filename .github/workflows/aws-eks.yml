@@ -34,7 +34,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/joke-app:${{version}}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/joke-app:${{env.version}}
 
 
   deploy:
@@ -51,7 +51,7 @@ jobs:
           cluster_name: joke-iw1-bis
         with:
           args: |
-            VERSION=${{VERSION}} kubectl apply -f ./k8s/deployment.yml
+            VERSION=${{env.version}} kubectl apply -f ./k8s/deployment.yml
 
       # kubectl apply -f ./k8s/deployment.yml
       # - name: Configure AWS Credentials
