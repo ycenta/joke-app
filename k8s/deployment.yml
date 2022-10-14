@@ -9,7 +9,7 @@ metadata:
     app: joke-app
 
 spec:
-  replicas: 1
+  replicas: 3
 
   selector:
     matchLabels:
@@ -24,7 +24,7 @@ spec:
       containers:
         - name: joke-app
 
-          image: mohammaddocker/joke-api:4.0.0
+          image: mohammaddocker/joke-api:4.0.1
           env:
             - name: PORT
               value: "80"
