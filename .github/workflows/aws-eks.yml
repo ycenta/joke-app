@@ -24,4 +24,4 @@ jobs:
       - name: Trigger deploy
         uses: Consensys/kubernetes-action@master
         with:
-          args: apply -f ./k8s/deployment.yaml
+          args: apply -f ./k8s/deployment.yml
