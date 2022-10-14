@@ -37,9 +37,8 @@ pipeline {
           }
 
           docker.withRegistry('https://registry.heroku.com', 'herokuId') {
-            def herokuImage = image
-            herokuImage.tag("${tag}")
-            herokuImage.push('latest')
+            sh "docker mohammaddocker/joke-app-jenkins ${tag}:latest"
+            sh "docker push ${tag}:latest"
           }
         }
       }
