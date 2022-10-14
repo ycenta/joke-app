@@ -12,17 +12,17 @@ pipeline {
 
   stages {
 
-    stage('build-test') {
+    // stage('build-test') {
 
-      steps {
-        nodejs(nodeJSInstallationName: "${params.NODE_INSTALLATION_NAME}") {
-          sh 'node -v'
-          sh 'npm install'
-          sh 'npm run build'
-          sh 'npm test'
-        }
-      }
-    }
+    //   steps {
+    //     nodejs(nodeJSInstallationName: "${params.NODE_INSTALLATION_NAME}") {
+    //       sh 'node -v'
+    //       sh 'npm install'
+    //       sh 'npm run build'
+    //       sh 'npm test'
+    //     }
+    //   }
+    // }
 
     stage('deploy') {
 
@@ -30,13 +30,13 @@ pipeline {
         script {
           def image = docker.build('mohammaddocker/joke-app-jenkins')
 
-          docker.withRegistry('https://registry.hub.docker.com', 'dockerId') {
-            def dockerImage = image
-            dockerImage.push('latest')
-          }
+          // docker.withRegistry('https://registry.hub.docker.com', 'dockerId') {
+          //   def dockerImage = image
+          //   dockerImage.push('latest')
+          // }
 
           docker.withRegistry('https://registry.heroku.com', 'herokuId') {
-            sh "docker mohammaddocker/joke-app-jenkins ${tag}:latest"
+            sh "docker tag mohammaddocker/joke-app-jenkins ${tag}:latest"
             sh "docker push ${tag}:latest"
           }
         }
