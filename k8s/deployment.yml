@@ -24,7 +24,7 @@ spec:
       containers:
         - name: joke-app
 
-          image: mohammaddocker/joke-api:4.0.1
+          image: mohammaddocker/joke-app:4.0.1
           env:
             - name: PORT
               value: "80"
