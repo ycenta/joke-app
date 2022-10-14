@@ -7,6 +7,7 @@ pipeline {
 
   environment {
     TOKEN = credentials("herokuToken")
+    tag = "registry.heroku.com/joke-jenkins/web"
   }
 
   stages {
@@ -27,10 +28,15 @@ pipeline {
 
       steps {
         script {
-          docker.withRegistry('https://registry.hub.docker.com', 'dockerId') {
-            def image = docker.build('mohammaddocker/joke-app-jenkins')
+          def image = docker.build('mohammaddocker/joke-app-jenkins')
 
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerId') {
             image.push('latest')
+          }
+
+          docker.withRegistry('https://registry.heroku.com', 'herokuId') {
+            image.tag("${tag}:latest")
+            image.push()
           }
         }
       }
