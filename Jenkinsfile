@@ -14,7 +14,6 @@ pipeline {
     stage('build-test') {
 
       steps {
-        sh "token = ${TOKEN}"
         nodejs(nodeJSInstallationName: "${params.NODE_INSTALLATION_NAME}") {
           sh 'node -v'
           sh 'npm install'
