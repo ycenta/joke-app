@@ -20,11 +20,12 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-west-3
-          cluster_name: joke-iw1
+          cluster_name: joke-iw1-bis
         with:
           args: |
-            kubectl apply -f ./k8s/deployment.yml
+            kubectl apply -f ./k8s/bikeshop.yml
 
+      # kubectl apply -f ./k8s/deployment.yml
       # - name: Configure AWS Credentials
       #   uses: aws-actions/configure-aws-credentials@v1
       #   with:

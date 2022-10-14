@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: bikeshop
+
+  labels:
+    app: bikeshop
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: bikeshop
+
+  template:
+    metadata:
+      labels:
+        app: bikeshop
+
+    spec:
+      containers:
+        - name: bikeshop
+
+          image: alexislours/bikeshop:latest
+
+          ports:
+            - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bikeshop
+spec:
+  type: LoadBalancer
+  selector:
+    app: bikeshop
+  ports:
+    - port: 80
+      targetPort: 3000
